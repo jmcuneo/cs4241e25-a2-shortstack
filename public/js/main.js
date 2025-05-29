@@ -31,10 +31,17 @@ const submit = async function( event ) {
   console.log("Response receieved")
   const result = await response.json();
   console.log(result)
-  alert("Thank you! You've been added to the waitlist. Please keep a lookout for our messages!");
+  alert(`Thank you! You've been added to the waitlist. As part of our personas for a free drink, you are a ${assignDrinkPersona(data.firstName)}!!! Please keep a lookout for our messages! `);
   document.getElementById("ourForm").reset();
 }
 
+function assignDrinkPersona(firstName) {
+  const firstChar = firstName[0].toUpperCase();
+  if (firstChar >= 'A' && firstChar <= 'F') return "Strawberry Matcha";
+  else if (firstChar >= 'G' && firstChar <= 'L') return "Brown Sugar Cold Brew";
+  else if (firstChar >= 'M' && firstChar <= 'R') return "Blueberry Matcha";
+  else return "Chai Latte";
+}
 
 // Loads data into the table on the admin page
 const loadTableData = async function () {
