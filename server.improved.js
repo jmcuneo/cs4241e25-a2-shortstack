@@ -18,15 +18,20 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
-const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
-
-  if( request.url === "/" ) {
-    sendFile( response, "public/index.html" )
-  }else{
-    sendFile( response, filename )
+//data routed to tables.html
+const handleGet = function (request, response) {
+  if (request.url === "/") {
+    sendFile(response, "public/tables.html");
   }
-}
+  else if (request.url === "/entries") {
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(JSON.stringify(appdata));
+  } else {
+    const filename = dir + request.url.slice(1);
+    sendFile(response, filename);
+  }
+};
+
 
 const handlePost = function (request, response) {
   let dataString = "";
@@ -44,6 +49,10 @@ const handlePost = function (request, response) {
       assignDrinkPersona(customerData);
       appdata.push(customerData);
 
+      //indicate that we have successfully submitted, and alerts + console logs are seen
+      response.writeHead(200, { "Content-Type": "application/json" });
+      response.end(JSON.stringify({ status: "success", entry: customerData }));
+      return;
     }
     //deleting an entry
     else if (request.url === "/delete") {
@@ -59,7 +68,6 @@ const handlePost = function (request, response) {
       return;
     }
     response.writeHead(200, { "Content-Type": "application/json" });
-
   });
 };
 

@@ -5,7 +5,9 @@ const submit = async function( event ) {
   // a new .html page for displaying results...
   // this was the original browser behavior and still
   // remains to this day
+  console.log("submit handler called");
   event.preventDefault()
+  console.log("event pd called")
 
   //each data entry goes through this object
   const data = {
@@ -16,6 +18,7 @@ const submit = async function( event ) {
   };
 
   const body = JSON.stringify(data)
+  console.log("data collected");
 
   const response = await fetch( "/submit", {
     method:"POST",
@@ -25,10 +28,10 @@ const submit = async function( event ) {
     body 
   })
 
-  console.log("it worked main.js")
+  console.log("Response receieved")
   const result = await response.json();
   console.log(result)
-  alert("Thank you! You've been added to the waitlist.");
+  alert("Thank you! You've been added to the waitlist. Please keep a lookout for our messages!");
   document.getElementById("ourForm").reset();
 }
 
@@ -68,14 +71,17 @@ const deleteEntry = async function (id) {
   await loadTableData(); // Refresh the table
 };
 
-window.onload = function() {
-   const button = document.getElementById("submitButton");
-  document.getElementById("submitButton").addEventListener("submit", submit);
-  button.onclick = submit;
+window.onload = function () {
+  const form = document.getElementById("ourForm");
 
-  const customerDataTable = document.getElementById("customerDataTable");
-  if (customerDataTable) {
-    loadTableData(); // Only call this on tables.html
+  //submit logic for index.html
+  if (form) {
+    form.addEventListener("submit", submit);
   }
 
-}
+  //table data for tables.html
+  const customerDataTable = document.getElementById("customerDataTable");
+  if (customerDataTable) {
+    loadTableData();
+  }
+};
