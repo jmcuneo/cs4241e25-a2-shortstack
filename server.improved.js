@@ -8,11 +8,7 @@ const http = require( "http" ),
       dir  = "public/",
       port = 3000
 
-const appdata = [
-  { "model": "toyota", "year": 1999, "mpg": 23 },
-  { "model": "honda", "year": 2004, "mpg": 30 },
-  { "model": "ford", "year": 1987, "mpg": 14} 
-]
+const appdata = [] //object to handle data
 
 const server = http.createServer( function( request,response ) {
   if( request.method === "GET" ) {
@@ -32,28 +28,52 @@ const handleGet = function( request, response ) {
   }
 }
 
-const handlePost = function( request, response ) {
-  let dataString = ""
+const handlePost = function (request, response) {
+  let dataString = "";
 
-  request.on( "data", function( data ) {
-      dataString += data 
-  })
+  request.on("data", function (data) {
+    dataString += data;
+  });
 
-  //have all data, time to parse
-  request.on( "end", function() {
-    console.log( JSON.parse( dataString ) )
+  request.on("end", function () {
 
-    // ... do something with the data here!!!
-    const html = <html>
-      <body>
-        ${appdata.map(item => JSON.stringify(item))}
-      </body>
-    </html>
+    //submitting data, it also will do calculations for drinkPersona
+    if (request.url === "/submit") {
+      const customerData = JSON.parse(dataString);
+      customerData.id = appdata.length;
+      assignDrinkPersona(customerData);
+      appdata.push(customerData);
 
-    response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
-    response.end("test")
-  })
+    }
+    //deleting an entry
+    else if (request.url === "/delete") {
+      const index = JSON.parse(dataString);
+      appdata.splice(parseInt(index.id), 1);
+      // reassign IDs
+      appdata.forEach((entry, i) => entry.id = i);
+    }
+    //it did not work
+    else {
+      response.writeHead(404, { "Content-Type": "application/json" });
+      response.end(JSON.stringify({ error: "Invalid POST route" }));
+      return;
+    }
+    response.writeHead(200, { "Content-Type": "application/json" });
+
+  });
+};
+
+
+// This is my derived field function which uses firstName. The alphabet is split into 4 ways, and so using the first character of their first name,
+// I created a mini persona for them for fun.
+function assignDrinkPersona(item) {
+  const firstChar = item.firstName[0].toUpperCase();
+  if (firstChar >= 'A' && firstChar <= 'F') item.persona = "Strawberry Matcha";
+  else if (firstChar >= 'G' && firstChar <= 'L') item.persona = "Brown Sugar Cold Brew";
+  else if (firstChar >= 'M' && firstChar <= 'R') item.persona = "Blueberry Matcha";
+  else item.persona = "Chai Latte";
 }
+
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 

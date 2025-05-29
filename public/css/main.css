@@ -35,6 +35,7 @@ p {
   align-items: center;
   margin: auto;
   gap: 15px;
+  justify-content: space-between;
 }
 
 /* For some weird reason, the website is in flex mode automatically and we don't want that */
@@ -63,6 +64,7 @@ p {
   border: 1px var(--outline) solid;
   border-radius: 5px;
   background-color: var(--offWhite);
+  box-sizing: border-box;
 }
 
 input:focus {
@@ -83,3 +85,23 @@ input:focus {
 #submitButton:hover {
   background-color: black;
 }
+
+/* Table CSS*/
+#customerDataTable {
+  background-color: var(--offWhite);
+  border: var(--outline) 1px solid;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+th {
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+td{
+  font-size: 0.9rem;
+}
+
