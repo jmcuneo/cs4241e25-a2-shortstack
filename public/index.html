@@ -10,9 +10,38 @@
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
   </head>
   <body>
-    <form>
-      <input type="text" id="yourname" value="your name here">
-      <button>submit</button>
+    <!-- This portion uses flexbox to align the image and text horizontally and vertically -->
+    <div id="headers">
+      <img id="northstar" src="northstar.jpg" alt="northstar"/>
+      <h1>Northstar Cafe</h1>
+    </div>
+    <p>
+      Welcome to the Northstar Cafe Waitlist! We are currently in the process of making our menu, and if you are interested in seeing what we have to offer,
+      please fill out this form and we will email you when it is released. Thank you and we hope to see you soon!
+      <br/>
+      <br/>
+      ~ The Northstar Team
+    </p>
+    <hr/>
+
+    <form id="ourForm">
+      <br/>
+      <label for="firstName" class="labels">First Name<span class="required"> *</span></label>
+      <input required type="text" id="firstName" placeholder="ex. Jane" class="fields">
+      <br/>
+      <label for="lastName" class="labels">Last Name<span class="required"> *</span></label>
+      <input required type="text" id="lastName" placeholder="ex. Doe" class="fields">
+      <br/>
+      <label for="email" class="labels">Email<span class="required"> *</span></label>
+      <input required type="text" id="email" placeholder="ex. janedoe@gmail.com" class="fields">
+      <br/>
+      <label for="phoneNumber" class="labels">Phone Number (optional)</label>
+      <input type="text" id="phoneNumber" placeholder="ex. 123-456-7890" class="fields">
+      <br/>
+      <button id="submitButton" type="submit">Submit Form</button>
     </form>
+
+    <!-- Footer uses grids -->
+
   </body>
 </html>

@@ -1,4 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Root Variables used for Maintainability, used in instances thru var() */
+/* This is technically the color palette */
+:root {
+  --offBlack: #161513;
+  --offWhite: #FCFCFC;
+  --outline: #ECEBEB;
+  --labelColor: #5E718E;
+}
+hr {
+  width: 100%;
+}
+/* Inter font used and page is centered */
 body {
-  background:black;
-  color:white;
+  background-color: white;
+  font-family: "Inter", sans-serif;
+  width: 50%;
+  margin: auto;
+  padding-top: 2.5rem;
+}
+
+p {
+  color: var(--labelColor);
+  font-size: 0.9rem;
+}
+
+#northstar {
+  width: 50px;
+  height: 50px;
+}
+
+#headers {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  gap: 15px;
+}
+
+/* For some weird reason, the website is in flex mode automatically and we don't want that */
+#ourForm label,
+#ourForm input,
+#ourForm button {
+  display: block;
+
+}
+
+/* Below is form styling */
+.labels {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--labelColor);
+}
+
+.required {
+  color: red;
+}
+
+.fields {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px var(--outline) solid;
+  border-radius: 5px;
+  background-color: var(--offWhite);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--labelColor);
+}
+
+#submitButton {
+  background-color: var(--offBlack);
+  color: white;
+  font-size: 1rem;
+  border-radius: 25px;
+  font-weight: bold;
+  padding: 1rem;
+  outline: none;
+}
+
+#submitButton:hover {
+  background-color: black;
 }

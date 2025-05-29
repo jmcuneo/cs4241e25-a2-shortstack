@@ -39,10 +39,16 @@ const handlePost = function( request, response ) {
       dataString += data 
   })
 
+  //have all data, time to parse
   request.on( "end", function() {
     console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    const html = <html>
+      <body>
+        ${appdata.map(item => JSON.stringify(item))}
+      </body>
+    </html>
 
     response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
     response.end("test")
