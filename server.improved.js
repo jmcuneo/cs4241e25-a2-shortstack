@@ -21,7 +21,7 @@ const server = http.createServer( function( request,response ) {
 //data routed to tables.html
 const handleGet = function (request, response) {
   if (request.url === "/") {
-    sendFile(response, "public/tables.html");
+    sendFile(response, "public/index.html");
   }
   else if (request.url === "/entries") {
     response.writeHead(200, { "Content-Type": "application/json" });
@@ -52,7 +52,6 @@ const handlePost = function (request, response) {
       //indicate that we have successfully submitted, and alerts + console logs are seen
       response.writeHead(200, { "Content-Type": "application/json" });
       response.end(JSON.stringify({ status: "success", entry: customerData }));
-      return;
     }
     //deleting an entry
     else if (request.url === "/delete") {
@@ -60,14 +59,15 @@ const handlePost = function (request, response) {
       appdata.splice(parseInt(index.id), 1);
       // reassign IDs
       appdata.forEach((entry, i) => entry.id = i);
+
+      response.writeHead(200, { "Content-Type": "application/json" });
+      response.end(JSON.stringify({ status: "deleted" }));
     }
     //it did not work
     else {
       response.writeHead(404, { "Content-Type": "application/json" });
       response.end(JSON.stringify({ error: "Invalid POST route" }));
-      return;
     }
-    response.writeHead(200, { "Content-Type": "application/json" });
   });
 };
 

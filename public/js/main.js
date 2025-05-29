@@ -53,22 +53,30 @@ const loadTableData = async function () {
       <td>${entry.email}</td>
       <td>${entry.phoneNumber || ""}</td>
       <td>${entry.persona}</td>
-      <td><button onclick="deleteEntry(${entry.id})">Delete</button></td>
+      <td><button style="background-color: #ed4337; color: white; border-radius: 10px; border: none; padding: 10px" onclick="deleteEntry(${entry.id})">Delete</button></td>
     `;
 
     tbody.appendChild(row);
   });
 };
 
+
 // Delete a specific entry
 const deleteEntry = async function (id) {
-  await fetch("/delete", {
+  const response = await fetch("/delete", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id })
   });
 
-  await loadTableData(); // Refresh the table
+  console.log("Delete response status:", response.status);
+
+  if (response.ok) {
+    await loadTableData(); //rerender for responsiveness
+    console.log("Table data reloaded after delete.");
+  } else {
+    console.error("Failed to delete entry.");
+  }
 };
 
 window.onload = function () {
@@ -82,6 +90,6 @@ window.onload = function () {
   //table data for tables.html
   const customerDataTable = document.getElementById("customerDataTable");
   if (customerDataTable) {
-    loadTableData();
+    loadTableData().then();
   }
 };
