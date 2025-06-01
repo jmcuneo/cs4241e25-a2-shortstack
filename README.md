@@ -3,8 +3,6 @@ https://a2-chrislam.glitch.me/
 ---
 
 ## Northstar Cafe Waitlist Site
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
-
 I have always been into making drinks especially in a home cafe setting. This project acts as a waitlist signup for "prospective customers" where they can see the potential menu once it is completed in a flexbox webdev setting. The application assumes the person IS AN ADMIN, which is why I have the admin tables for people to see data. There is not much you need to do, other than input dummy data and see it on the tables. For engagement, my derived data is a personified drink, where it takes their first names and gives them a drink based on that.
 
 ## Technical Achievements
