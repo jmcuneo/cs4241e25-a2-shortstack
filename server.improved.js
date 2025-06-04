@@ -8,11 +8,7 @@ const http = require( "http" ),
       dir  = "public/",
       port = 3000
 
-const appdata = [
-  { "model": "toyota", "year": 1999, "mpg": 23 },
-  { "model": "honda", "year": 2004, "mpg": 30 },
-  { "model": "ford", "year": 1987, "mpg": 14} 
-]
+const appdata = [] //object to handle data
 
 const server = http.createServer( function( request,response ) {
   if( request.method === "GET" ) {
@@ -22,32 +18,70 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
-const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
-
-  if( request.url === "/" ) {
-    sendFile( response, "public/index.html" )
-  }else{
-    sendFile( response, filename )
+// Get Function
+const handleGet = function (request, response) {
+  if (request.url === "/") {
+    sendFile(response, "public/index.html"); //first page on loadup routed to this
   }
+  else if (request.url === "/entries") { // entry requests. for future reference, the else if statement here can be used repeatedly for other things
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(JSON.stringify(appdata));
+  } else {
+    const filename = dir + request.url.slice(1);
+    sendFile(response, filename);
+  }
+};
+
+// Posts
+const handlePost = function (request, response) {
+  let dataString = "";
+
+  request.on("data", function (data) {
+    dataString += data;
+  });
+
+  request.on("end", function () {
+
+    //submitting data, it also will do calculations for drinkPersona
+    if (request.url === "/submit") {
+      const customerData = JSON.parse(dataString);
+      customerData.id = appdata.length;
+      assignDrinkPersona(customerData); // assign Persona based on the current data
+      appdata.push(customerData);
+
+      //indicate that we have successfully submitted, and alerts + console logs are seen
+      response.writeHead(200, { "Content-Type": "application/json" });
+      response.end(JSON.stringify({ status: "success", entry: customerData }));
+    }
+    //deleting an entry
+    else if (request.url === "/delete") {
+      const index = JSON.parse(dataString);
+      appdata.splice(parseInt(index.id), 1);
+      // reassign IDs
+      appdata.forEach((entry, i) => entry.id = i);
+
+      response.writeHead(200, { "Content-Type": "application/json" });
+      response.end(JSON.stringify({ status: "deleted" }));
+    }
+    //it did not work
+    else {
+      response.writeHead(404, { "Content-Type": "application/json" });
+      response.end(JSON.stringify({ error: "Invalid POST route" }));
+    }
+  });
+};
+
+
+// This is my derived field function which uses firstName. The alphabet is split into 4 ways, and so using the first character of their first name,
+// I created a mini persona for them for fun.
+function assignDrinkPersona(item) {
+  const firstChar = item.firstName[0].toUpperCase();
+  if (firstChar >= 'A' && firstChar <= 'F') item.persona = "Strawberry Matcha";
+  else if (firstChar >= 'G' && firstChar <= 'L') item.persona = "Brown Sugar Cold Brew";
+  else if (firstChar >= 'M' && firstChar <= 'R') item.persona = "Blueberry Matcha";
+  else item.persona = "Chai Latte";
 }
 
-const handlePost = function( request, response ) {
-  let dataString = ""
-
-  request.on( "data", function( data ) {
-      dataString += data 
-  })
-
-  request.on( "end", function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
-    response.end("test")
-  })
-}
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 

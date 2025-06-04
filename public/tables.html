@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js"></script>
+
+</head>
+<body>
+    <!-- This portion uses flexbox to align the image and text horizontally and vertically -->
+    <div id="headers">
+        <div style="display: flex; align-items: center; gap: 15px">
+            <img id="northstar" src="northstar.jpg" alt="northstar"/>
+            <h1>Northstar Cafe</h1>
+        </div>
+        <a href="index.html">Back to Form</a>
+    </div>
+    <p>
+        Use these tables to edit when customers want to change certain parts, delete, etc.
+    </p>
+
+    <!-- Table where all data will go -->
+    <table id="customerDataTable">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone #</th>
+            <th>They are a...</th>
+            <th>Remove</th>
+        </tr>
+
+        <tbody id="customerDataBody"></tbody>
+    </table>
+</body>
+</html>
