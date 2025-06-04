@@ -18,12 +18,12 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
-//data routed to tables.html
+// Get Function
 const handleGet = function (request, response) {
   if (request.url === "/") {
-    sendFile(response, "public/index.html");
+    sendFile(response, "public/index.html"); //first page on loadup routed to this
   }
-  else if (request.url === "/entries") {
+  else if (request.url === "/entries") { // entry requests. for future reference, the else if statement here can be used repeatedly for other things
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify(appdata));
   } else {
@@ -32,7 +32,7 @@ const handleGet = function (request, response) {
   }
 };
 
-
+// Posts
 const handlePost = function (request, response) {
   let dataString = "";
 
@@ -46,7 +46,7 @@ const handlePost = function (request, response) {
     if (request.url === "/submit") {
       const customerData = JSON.parse(dataString);
       customerData.id = appdata.length;
-      assignDrinkPersona(customerData);
+      assignDrinkPersona(customerData); // assign Persona based on the current data
       appdata.push(customerData);
 
       //indicate that we have successfully submitted, and alerts + console logs are seen

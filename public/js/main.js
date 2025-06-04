@@ -20,6 +20,7 @@ const submit = async function( event ) {
   const body = JSON.stringify(data)
   console.log("data collected");
 
+  //Fetch for submitting button
   const response = await fetch( "/submit", {
     method:"POST",
     headers: {
@@ -31,10 +32,12 @@ const submit = async function( event ) {
   console.log("Response receieved")
   const result = await response.json();
   console.log(result)
+  //Alert to the user and for us on debugging
   alert(`Thank you! You've been added to the waitlist. As part of our personas for a free drink, you are a ${assignDrinkPersona(data.firstName)}!!! Please keep a lookout for our messages! `);
   document.getElementById("ourForm").reset();
 }
 
+//This is similar to the server one, just a little different based on the needs
 function assignDrinkPersona(firstName) {
   const firstChar = firstName[0].toUpperCase();
   if (firstChar >= 'A' && firstChar <= 'F') return "Strawberry Matcha";
@@ -48,9 +51,12 @@ const loadTableData = async function () {
   const response = await fetch("/entries");
   const data = await response.json();
 
+  //id of Table body
   const tbody = document.getElementById("customerDataBody");
   tbody.innerHTML = ""; // clear previous content
 
+
+  //Mapping over each possible form fillout. It has the base headers
   data.forEach(entry => {
     const row = document.createElement("tr");
 
@@ -63,7 +69,7 @@ const loadTableData = async function () {
       <td><button style="background-color: #ed4337; color: white; border-radius: 10px; border: none; padding: 10px" onclick="deleteEntry(${entry.id})">Delete</button></td>
     `;
 
-    tbody.appendChild(row);
+    tbody.appendChild(row); //adding our user data after submitting
   });
 };
 
