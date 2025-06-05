@@ -10,9 +10,30 @@
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
   </head>
   <body>
+    <h1>Spending Tracker</h1>
+    <h3>Adding to Tracker</h3>
     <form>
-      <input type="text" id="yourname" value="your name here">
-      <button>submit</button>
+      <label for="item">Name of item:</label>
+      <input type="text" id="item" value="">
+      <br>
+      <label for="price">Price of item:</label>
+      <input type="text" id="price" value="">
+      <br>
+      <label for="category">Choose a category:</label>
+      <select id="category" name="cars">
+        <option value="general">General</option>
+        <option value="groceries">Groceries</option>
+        <option value="bills">Bills</option>
+        <option value="shopping">Shopping</option>
+        <option value="treats">Treats for Myself</option>
+        <option value="gifts">Gifts</option>
+        <option value="other">Other</option>
+      </select>
+      <br>
+      <label for="note">Any notes:</label>
+      <input type="text" id="notes" value="">
+      <br>
+      <button>Submit</button>
     </form>
   </body>
 </html>
