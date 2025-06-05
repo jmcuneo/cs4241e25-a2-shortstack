@@ -16,10 +16,15 @@ You'll need to use sometype of collaborative software that will enable you both 
 
 
 # CS4241 Assignment 2 - Nick Smith
+
+https://a2.greenbueller.com/
+
 ## Magnolia Task Manager
 The Magnolia Task Manager is a simple program that allows the user to create a "task" for any point from the current time (setting one in the past is not supported), and have it listed by priority and by deadline. The user is able to mark off completed tasks with a checkbox at the end of the table on the Tasks page, while they can add more tasks on the home page.
 
 If a task is due within 1 day and it is not marked as completed, it will turn to the highlight colour described in the pallette.
+
+**NOTE**: If the page is offline and you go to a cloudflare page, please reload the page. For some reason, when Render turns the service on, Cloudflare will cause an issue rather than sending you to the correct page directly.
 
 ## Technical Achievements
 - **Tech Achievement 1**: I managed to implement a system where the user can check off tasks to mark them as completed. This was challenging as I had to figure out how to save the original priority and deadline of the task before marking it as completed, as I also allow the user to 'uncomplete' a task.
