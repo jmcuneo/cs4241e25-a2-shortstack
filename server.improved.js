@@ -8,13 +8,14 @@ const http = require( "http" ),
       dir  = "public/",
       port = 3000
 
-const appdata = [
-  { "model": "toyota", "year": 1999, "mpg": 23 },
-  { "model": "honda", "year": 2004, "mpg": 30 },
-  { "model": "ford", "year": 1987, "mpg": 14} 
+const spendingdata = [
+  { "date": "2025-06-04", "item": "Laundry Detergent", "price": 17.23, "category": "General", "note": "This was the small tide podes" }
 ]
 
 const server = http.createServer( function( request,response ) {
+
+  //debugger
+
   if( request.method === "GET" ) {
     handleGet( request, response )    
   }else if( request.method === "POST" ){
@@ -27,25 +28,38 @@ const handleGet = function( request, response ) {
 
   if( request.url === "/" ) {
     sendFile( response, "public/index.html" )
+  }else if ( request.url === "/spending-list.html" ) {
+    sendFile( response, "public/spending-list.html" )
   }else{
     sendFile( response, filename )
   }
 }
 
 const handlePost = function( request, response ) {
-  let dataString = ""
+  //let dataString = []
 
   request.on( "data", function( data ) {
-      dataString += data 
+      //dataString = data
+      spendingdata.push(data)
   })
 
   request.on( "end", function() {
-    console.log( JSON.parse( dataString ) )
+    //console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    /* const html = `
+    <html><body>
+    ${spendingdata.map(item => JSON.stringify(item))}
+    </body>
+    </html>
+
+    ` 
 
     response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
+    response.url = ''
     response.end("test")
+    */
+    sendFile(response, "public/spending-list.html")
   })
 }
 
