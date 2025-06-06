@@ -14,7 +14,7 @@ const http = require( "http" ),
 // data already in the database
 let _nextid = 1;
 const spendingdata = [
-  { "item": "Laundry Detergent", "price": 17.23, "category": "general", "note": "This was the small tide podes", "id": 0, "date": "06-04-2025" }
+  { "item": "Laundry Detergent", "price": "$17.23", "category": "general", "note": "This was the small tide podes", "id": 0, "date": "6-4-2025" }
 ]
 
 // server is created, can handle GET and POST method requests
@@ -35,6 +35,8 @@ const handleGet = function( request, response ) {
     sendFile( response, "public/index.html" );
   }else if ( request.url === "/spending-list.html" ) {
     sendFile( response, "public/spending-list.html" );
+  }else if (request.url === "/obtainData.json") {
+    giveData(response);
   }else{
     // invalid requests are handled by sendFile function
     sendFile( response, filename );
@@ -50,6 +52,7 @@ const handlePost = function( request, response ) {
       dataString.id = _nextid;
       _nextid++;
       dataString.date = getDate();
+      dataString.price = "$" + dataString.price
       spendingdata.push(dataString);
       //spendingdata.map(item => console.log(JSON.stringify(item)));
       /* dataString.forEach(item => {
@@ -74,7 +77,7 @@ const handlePost = function( request, response ) {
     response.end("test")
     */
     response.writeHead( 200, "OK", {"Content-Type": "application/json" });
-    response.url = "public/spending-list.html";
+    response.url = "public/index.html";
     let body = JSON.stringify( spendingdata );
     response.end(body)
     //sendFile(response, "public/spending-list.html");
@@ -91,6 +94,12 @@ const getDate = function() {
   let currentDate = `${month}-${day}-${year}`;
 
   return currentDate;
+}
+
+const giveData = function(response) {
+  response.writeHead( 200, "OK", {"Content-Type": "application/json" });
+  let body = JSON.stringify( spendingdata );
+  response.end(body)
 }
 
 // for responding to file (page) requests
