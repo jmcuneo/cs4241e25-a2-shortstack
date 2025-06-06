@@ -8,39 +8,53 @@ const http = require( "http" ),
       dir  = "public/",
       port = 3000
 
+      // run the server using "npm start" in the terminal
+      // open website by going to localhost:3000
+
+// data already in the database
+let _nextid = 1;
 const spendingdata = [
-  { "date": "2025-06-04", "item": "Laundry Detergent", "price": 17.23, "category": "General", "note": "This was the small tide podes" }
+  { "item": "Laundry Detergent", "price": 17.23, "category": "general", "note": "This was the small tide podes", "id": 0, "date": "06-04-2025" }
 ]
 
+// server is created, can handle GET and POST method requests
 const server = http.createServer( function( request,response ) {
 
-  //debugger
-
   if( request.method === "GET" ) {
-    handleGet( request, response )    
+    handleGet( request, response );
   }else if( request.method === "POST" ){
-    handlePost( request, response ) 
+    handlePost( request, response );
   }
 })
 
+// handles all GET method requests
 const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
+  const filename = dir + request.url.slice( 1 );
 
-  if( request.url === "/" ) {
-    sendFile( response, "public/index.html" )
+  if( request.url === "/" || request.url === "/index.html" ) {
+    sendFile( response, "public/index.html" );
   }else if ( request.url === "/spending-list.html" ) {
-    sendFile( response, "public/spending-list.html" )
+    sendFile( response, "public/spending-list.html" );
   }else{
-    sendFile( response, filename )
+    // invalid requests are handled by sendFile function
+    sendFile( response, filename );
   }
 }
 
+// handles all POST method requests
 const handlePost = function( request, response ) {
-  //let dataString = []
+  let dataString = []
 
   request.on( "data", function( data ) {
-      //dataString = data
-      spendingdata.push(data)
+      dataString = JSON.parse(data);
+      dataString.id = _nextid;
+      _nextid++;
+      dataString.date = getDate();
+      spendingdata.push(dataString);
+      //spendingdata.map(item => console.log(JSON.stringify(item)));
+      /* dataString.forEach(item => {
+        spendingdata.map(item => console.log(JSON.stringify(item)))
+      }); */
   })
 
   request.on( "end", function() {
@@ -59,12 +73,29 @@ const handlePost = function( request, response ) {
     response.url = ''
     response.end("test")
     */
-    sendFile(response, "public/spending-list.html")
+    response.writeHead( 200, "OK", {"Content-Type": "application/json" });
+    response.url = "public/spending-list.html";
+    let body = JSON.stringify( spendingdata );
+    response.end(body)
+    //sendFile(response, "public/spending-list.html");
   })
 }
 
+const getDate = function() {
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  let currentDate = `${month}-${day}-${year}`;
+
+  return currentDate;
+}
+
+// for responding to file (page) requests
 const sendFile = function( response, filename ) {
-   const type = mime.getType( filename ) 
+   const type = mime.getType( filename );
 
    fs.readFile( filename, function( err, content ) {
 
@@ -72,17 +103,17 @@ const sendFile = function( response, filename ) {
      if( err === null ) {
 
        // status code: https://httpstatuses.com
-       response.writeHeader( 200, { "Content-Type": type })
-       response.end( content )
+       response.writeHeader( 200, { "Content-Type": type });
+       response.end( content );
 
      }else{
 
        // file not found, error code 404
-       response.writeHeader( 404 )
-       response.end( "404 Error: File Not Found" )
+       response.writeHeader( 404 );
+       response.end( "404 Error: File Not Found" );
 
      }
    })
 }
 
-server.listen( process.env.PORT || port )
+server.listen( process.env.PORT || port );
