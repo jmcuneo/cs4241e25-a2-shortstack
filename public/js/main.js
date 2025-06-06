@@ -39,7 +39,6 @@ const populateTable = async function() {
         alert("Oops, something went wrong and table wasn't able to load!")
       }
       receivedData = serverresponse.json()
-      console.log(receivedData);
       return receivedData
   }).then( function(clientspendingdata) {
     clientspendingdata.forEach( item => {
@@ -72,8 +71,6 @@ const populateTable = async function() {
 const deleteItem = async function(idNum) {
   const theid = { "idNumDel": idNum },
         dataforDelete = JSON.stringify( theid );
-  
-  console.log(idNum)
 
   await fetch( "deleteItem", {
     method: "DELETE",

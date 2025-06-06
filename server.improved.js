@@ -49,8 +49,6 @@ const handleGet = function( request, response ) {
 const handlePost = function( request, response ) {
   let dataString = []
 
-  console.log(request);
-
   request.on( "data", function( data ) {
       dataString = JSON.parse(data);
       dataString.id = _nextid;
@@ -61,33 +59,13 @@ const handlePost = function( request, response ) {
       dataString.price = "$" + parseFloat(dataString.price).toFixed(2);
       dataString.discount = "" + dataString.discount + "%";
       spendingdata.unshift(dataString);
-      //spendingdata.map(item => console.log(JSON.stringify(item)));
-      /* dataString.forEach(item => {
-        spendingdata.map(item => console.log(JSON.stringify(item)))
-      }); */
   })
 
   request.on( "end", function() {
-    //console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-    /* const html = `
-    <html><body>
-    ${spendingdata.map(item => JSON.stringify(item))}
-    </body>
-    </html>
-
-    ` 
-
-    response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
-    response.url = ''
-    response.end("test")
-    */
     response.writeHead( 200, "OK", {"Content-Type": "application/json" });
     response.url = "public/index.html";
     let body = JSON.stringify( spendingdata );
     response.end(body)
-    //sendFile(response, "public/spending-list.html");
   })
 }
 
@@ -96,7 +74,7 @@ const handleDelete = function( request, response ) {
   
   request.on( "data", function( data ) {
       dataid = JSON.parse(data);
-      
+
       const index = spendingdata.findIndex(item => item.id === dataid.idNumDel);
       if (index === -1) {
         response.writeHeader( 500 );
