@@ -24,6 +24,8 @@ const server = http.createServer( function( request,response ) {
     handleGet( request, response );
   }else if( request.method === "POST" ){
     handlePost( request, response );
+  }else if (request.method === "DELETE") {
+    handleDelete( request, response );
   }
 })
 
@@ -46,6 +48,8 @@ const handleGet = function( request, response ) {
 // handles all POST method requests
 const handlePost = function( request, response ) {
   let dataString = []
+
+  console.log(request);
 
   request.on( "data", function( data ) {
       dataString = JSON.parse(data);
@@ -84,6 +88,25 @@ const handlePost = function( request, response ) {
     let body = JSON.stringify( spendingdata );
     response.end(body)
     //sendFile(response, "public/spending-list.html");
+  })
+}
+
+const handleDelete = function( request, response ) {
+  let dataid = {}
+  
+  request.on( "data", function( data ) {
+      dataid = JSON.parse(data);
+      
+      const index = spendingdata.findIndex(item => item.id === dataid.idNumDel);
+      if (index === -1) {
+        response.writeHeader( 500 );
+        response.end( "500 Error: Server Side Error - Could not delete item" );
+      } else {
+        spendingdata.splice(index, 1);
+        response.writeHead( 200, "OK", {"Content-Type": "application/json" });
+        let body = JSON.stringify( spendingdata );
+        response.end(body)
+      }
   })
 }
 

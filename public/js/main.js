@@ -19,7 +19,6 @@ const submit = async function( event ) {
     method:"POST",
     body 
   }).then( function(serverresponse) {
-      //serverresponse.json()
       if (serverresponse.status === 200) {
         alert("Item was successfully added!")
       } else {
@@ -35,8 +34,7 @@ const populateTable = async function() {
 
   await fetch( "obtainData.json", {
     method:"GET"
-  })
-    .then( function(serverresponse) {
+  }).then( function(serverresponse) {
       if (serverresponse.status !== 200) {
         alert("Oops, something went wrong and table wasn't able to load!")
       }
@@ -47,23 +45,47 @@ const populateTable = async function() {
     clientspendingdata.forEach( item => {
       let row = table.insertRow();
       let tdate = row.insertCell(0);
-      tdate.innerHTML = item.date
+      tdate.innerHTML = item.date;
       let titem = row.insertCell(1);
-      titem.innerHTML = item.item
+      titem.innerHTML = item.item;
       let tprice = row.insertCell(2);
-      tprice.innerHTML = item.price
+      tprice.innerHTML = item.price;
       let tdiscount = row.insertCell(3);
-      tdiscount.innerHTML = item.discount
+      tdiscount.innerHTML = item.discount;
       let tmoneySaved = row.insertCell(4);
-      tmoneySaved.innerHTML = item.moneySaved
+      tmoneySaved.innerHTML = item.moneySaved;
       let tcategory = row.insertCell(5);
-      tcategory.innerHTML = item.category
+      tcategory.innerHTML = item.category;
       let tnote = row.insertCell(6);
-      tnote.innerHTML = item.note
+      tnote.innerHTML = item.note;
+      const abutton = document.createElement('button');
+      abutton.textContent = "Delete Item";
+      abutton.value = item.id;
+      abutton.onclick = () => deleteItem(item.id);
+      let forDeleting = row.insertCell(7);
+      forDeleting.appendChild(abutton);
     });
   });
-
   
+}
+
+const deleteItem = async function(idNum) {
+  const theid = { "idNumDel": idNum },
+        dataforDelete = JSON.stringify( theid );
+  
+  console.log(idNum)
+
+  await fetch( "deleteItem", {
+    method: "DELETE",
+    body: dataforDelete
+  }).then( function(serverresponse) {
+    if (serverresponse.status === 200) {
+      alert("Item successfully deleted!")
+    } else {
+      alert("Oops, something went wrong and the item was not deleted!")
+    }
+  })
+  window.location.reload(true);
 }
 
 // when window is loaded this will run first
