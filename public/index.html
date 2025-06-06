@@ -9,6 +9,9 @@
     <!-- get rid of favicon error -->
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
   </head>
+  <nav>
+    <a href="/spending-list.html">Go to List</a>
+  </nav>
   <body>
     <h1>Spending Tracker</h1>
     <h3>Adding to Tracker</h3>
@@ -17,8 +20,11 @@
       <label for="item">Name of item:</label>
       <input type="text" id="item" value="">
       <br>
-      <label for="price">Price of item:</label>
+      <label for="price">Price paid for item:</label>
       <input type="text" id="price" value="">
+      <br>
+      <label for="discount">Any discount? (put in number from 1-100 terms of %)</label>
+      <input type="text" id="discount" value="0">
       <br>
       <label for="category">Choose a category:</label>
       <select id="category" name="categories">

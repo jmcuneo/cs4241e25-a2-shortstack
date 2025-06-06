@@ -9,9 +9,10 @@ const submit = async function( event ) {
   
   const item = document.querySelector( "#item" ),
         price = document.querySelector( "#price" ),
+        discount = document.querySelector( "#discount" ),
         category = document.querySelector( "#category" ),
         note = document.querySelector( "#note" ),
-        json = { "item": item.value, "price": price.value, "category": category.value, "note": note.value },
+        json = { "item": item.value, "price": price.value, "discount": discount.value, "category": category.value, "note": note.value },
         body = JSON.stringify( json )
 
   const response = await fetch( "/index.html", {
@@ -51,9 +52,13 @@ const populateTable = async function() {
       titem.innerHTML = item.item
       let tprice = row.insertCell(2);
       tprice.innerHTML = item.price
-      let tcategory = row.insertCell(3);
+      let tdiscount = row.insertCell(3);
+      tdiscount.innerHTML = item.discount
+      let tmoneySaved = row.insertCell(4);
+      tmoneySaved.innerHTML = item.moneySaved
+      let tcategory = row.insertCell(5);
       tcategory.innerHTML = item.category
-      let tnote = row.insertCell(4);
+      let tnote = row.insertCell(6);
       tnote.innerHTML = item.note
     });
   });

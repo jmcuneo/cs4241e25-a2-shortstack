@@ -14,7 +14,7 @@ const http = require( "http" ),
 // data already in the database
 let _nextid = 1;
 const spendingdata = [
-  { "item": "Laundry Detergent", "price": "$17.23", "category": "general", "note": "This was the small tide podes", "id": 0, "date": "6-4-2025" }
+  { "item": "Laundry Detergent", "price": "$17.23", "discount": "0%", "category": "general", "note": "This was the small tide podes", "id": 0, "date": "6-4-2025", "moneySaved": "$0.00" }
 ]
 
 // server is created, can handle GET and POST method requests
@@ -52,8 +52,11 @@ const handlePost = function( request, response ) {
       dataString.id = _nextid;
       _nextid++;
       dataString.date = getDate();
-      dataString.price = "$" + dataString.price
-      spendingdata.push(dataString);
+      dataString.moneySaved = "$" + calcMoneySaved( parseFloat(dataString.price), parseFloat(dataString.discount) );
+
+      dataString.price = "$" + parseFloat(dataString.price).toFixed(2);
+      dataString.discount = "" + dataString.discount + "%";
+      spendingdata.unshift(dataString);
       //spendingdata.map(item => console.log(JSON.stringify(item)));
       /* dataString.forEach(item => {
         spendingdata.map(item => console.log(JSON.stringify(item)))
@@ -100,6 +103,11 @@ const giveData = function(response) {
   response.writeHead( 200, "OK", {"Content-Type": "application/json" });
   let body = JSON.stringify( spendingdata );
   response.end(body)
+}
+
+const calcMoneySaved = function(paid, discount) {
+  let monCalc = (paid * 100) / (100 - discount);
+  return (monCalc - paid).toFixed(2);
 }
 
 // for responding to file (page) requests
