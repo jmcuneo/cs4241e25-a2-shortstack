@@ -9,10 +9,12 @@ const http = require( "http" ),
       port = 3000
 
 const appdata = [
-  { "model": "toyota", "year": 1999, "mpg": 23 },
-  { "model": "honda", "year": 2004, "mpg": 30 },
-  { "model": "ford", "year": 1987, "mpg": 14} 
+  { "id": 1, "compInfo": "San Francisco Classic 2021", "level": "Platinum", "vaultScore": 8.9, "barScore":  9.1, "beamScore": 9.25, "floorScore": 8.925, "totalScore": 36.175 },
+  { "id": 2, "compInfo": "Region 1 Regionals 2018", "level": "Gold", "vaultScore": 9.3, "barScore":  9.225, "beamScore": 9.5, "floorScore": 9.375, "totalScore": 37.4 },
+  { "id": 3, "compInfo": "Worcester Invitational 2022", "level": "Diamond", "vaultScore": 8.9, "barScore":  9.1, "beamScore": 9.25, "floorScore": 8.925, "totalScore": 36.175 }
 ]
+
+let nextID = 4;
 
 const server = http.createServer( function( request,response ) {
   if( request.method === "GET" ) {
@@ -27,6 +29,9 @@ const handleGet = function( request, response ) {
 
   if( request.url === "/" ) {
     sendFile( response, "public/index.html" )
+  }else if ( request.url === "/loadData" ) {
+    response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
+    response.end( JSON.stringify(appdata) )
   }else{
     sendFile( response, filename )
   }
@@ -40,12 +45,40 @@ const handlePost = function( request, response ) {
   })
 
   request.on( "end", function() {
-    console.log( JSON.parse( dataString ) )
+    const data = JSON.parse( dataString )
+    console.log( data )
 
     // ... do something with the data here!!!
+    if ( data.compInfo && data.level && data.vaultScore && data.barScore && data.beamScore && data.floorScore ) {
+      const totalScore = Number(data.vaultScore) + Number(data.barScore) + Number(data.beamScore) + Number(data.floorScore)
+      data.totalScore = Math.round(totalScore * 1000) / 1000
 
-    response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
-    response.end("test")
+      if ( data.id ) {
+        appdata[data.id - 1] = data;
+      } else {
+        let finalData = {"id": nextID, ...data}
+        appdata.push( finalData );
+
+        nextID += 1;
+      }
+
+      response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
+      response.end( JSON.stringify(appdata) )
+    } else if ( Number(data) < nextID) {
+      appdata.splice( Number(data.toDel), 1 )
+
+      appdata.forEach((entry, index) => {
+        entry.id = index + 1;
+      });
+
+      nextID -= 1;
+
+      response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
+      response.end( JSON.stringify(appdata) )
+    } else {
+      response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
+      response.end( JSON.stringify(appdata) )
+    }
   })
 }
 
