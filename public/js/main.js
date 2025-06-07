@@ -60,6 +60,7 @@ const populateTable = async function() {
       const abutton = document.createElement('button');
       abutton.textContent = "Delete Item";
       abutton.value = item.id;
+      abutton.className = "deleteButton";
       abutton.onclick = () => deleteItem(item.id);
       let forDeleting = row.insertCell(7);
       forDeleting.appendChild(abutton);

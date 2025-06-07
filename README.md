@@ -112,8 +112,6 @@ Include a very brief summary of your project here. Be sure to include the CSS po
 
 This project is a simple spending tracker. You can add items to the list with additional information, including the name of the item, the price it was bought at, any discounts that the item had, the category of the item, and any side notes. The date and money saved will automatically be calculated and added. You can also delete items from the list.
 
-This project shows a combination of HTML, CSS styling, and JavaScript to create a simple website that serves as a self-introduction for CS 4241. HTML was used to format and add the contents of the website. CSS was used to style the website and individual elements of the HTML. JavaScript was used to make the interactive portion of the website. There is a server file, which is JavaScript, to allow local hosting of the website. This project allowed me to experiment with the different aspects of creating a website.
-
 ## Technical Achievements
 - **index.html**: The first page, index.html, has a form for users to pass in information to the server, including item name, price paid, discount, category of item, and notes. There is also a navigation bar that leads to the page that displays all the data, spending-list.html.
     - I used a dropdown menu for the category and regular text fields for the rest. Only the category and discount have autofilled responses. When the button is pressed, main.js sends all the user input to the server as a list of key value pairs.
@@ -128,4 +126,7 @@ This project shows a combination of HTML, CSS styling, and JavaScript to create 
 - **server.improved.js**: The server handles GET, POST, and DELETE requests. When adding in new items to the array, the current date is calculated and formatted using the getDate function, and the amount of money saved is calculated using the price paid and discount data received from the user. You can also delete items from the list.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **class vs. id**: Depending on the class and id, I styled them differently. For the class, I grouped all the delete buttons together under the class "deleteButton" and colored the text red to highlight that it would delete the item. For the id, I styled the other submit button for the form, adding padding.
+- **form**: I added padding to make the boxes of the input and select boxes bigger, and I added margins to add more space between the boxes and the edge of the screen. I tried experimenting with the flexbox by making this a flexbox so that I could align the items within the form. I set the flex-direction to column so that the input boxes would be under the text labels.
+-**nav**: For the navigation bar, I set the position to sticky so that it would stay at the top of the screen no matter where you scrolled.
+-**table**: I centered everything in the table and I collapsed the border of the table so that there would only be one line.
