@@ -2,9 +2,7 @@
 Esther Kim
 http://a2-estherkim.glitch.me
 
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
-
-This project is a simple spending tracker. You can add items to the list with additional information, including the name of the item, the price it was bought at, any discounts that the item had, the category of the item, and any side notes. The date and money saved will automatically be calculated and added. You can also delete items from the list.
+This project is a simple spending tracker. You can add items to the list with additional information, including the name of the item, the price it was bought at, any discounts that the item had, the category of the item, and any side notes. The date and money saved will automatically be calculated and added. You can also delete items from the list. I experimented with flexbox, margin, padding, table, and nav.
 
 ## Technical Achievements
 - **index.html**: The first page, index.html, has a form for users to pass in information to the server, including item name, price paid, discount, category of item, and notes. There is also a navigation bar that leads to the page that displays all the data, spending-list.html.
