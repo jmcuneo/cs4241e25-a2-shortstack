@@ -5,14 +5,203 @@
     <meta charset="utf-8">
     <script src="js/main.js"></script>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     
     <!-- get rid of favicon error -->
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
   </head>
   <body>
-    <form>
-      <input type="text" id="yourname" value="your name here">
-      <button>submit</button>
-    </form>
+  <header>
+    <hr />
+    <div class="headerContent">
+      <!-- Image on left of header -->
+      <img id="gymnastSplit" src="images/gymnastSplit.png" alt="Photo of a gymnast doing a split jump" />
+
+      <!-- Title and form display buttons in header -->
+      <div class="headerCenter">
+        <h1>Gymnastics Competition Score Tracker</h1>
+        <div class="formControl">
+          <button id="addEntry">Add Entry</button>
+          <button id="delEntry">Delete Entry</button>
+        </div>
+      </div>
+
+      <!-- Image on right of header -->
+      <img id="gymnastHandstand" src="images/gymnastHandstand.png" alt="Photo of a gymnast doing a handstand" />
+    </div>
+    <hr />
+  </header>
+    <main class="formAndEntries">
+      <!-- Form to Enter Data -->
+      <form id="addForm">
+        <!-- Form Header -->
+        <div class="sectionHeader">
+          <hr />
+          <h2>Add Entry Form</h2>
+          <hr />
+        </div>
+
+        <!-- Input 1: Competition Info -->
+        <label for="compInfo">Enter the Name and Year of the Competition:</label><br />
+        <input type="text" id="compInfo" name="compInfo"><br />
+
+        <!-- Input 2: Level -->
+        <label>Select the Level Competed:</label><br />
+        <input type="radio" name="level" id="bronze" value="Bronze">
+        <label for="bronze">Bronze</label>
+        <input type="radio" name="level" id="silver" value="Silver">
+        <label for="silver">Silver</label>
+        <input type="radio" name="level" id="gold" value="Gold">
+        <label for="gold">Gold</label>
+        <input type="radio" name="level" id="platinum" value="Platinum">
+        <label for="platinum">Platinum</label>
+        <input type="radio" name="level" id="diamond" value="Diamond">
+        <label for="diamond">Diamond</label>
+        <br />
+
+        <label>Scores:</label><br />
+        <div class="scores">
+          <!-- Input 3: Vault Score -->
+          <label for="vaultScore">Vault:</label>
+          <input type="number" id="vaultScore" name="vaultScore" min="0" max="10">
+
+          <!-- Input 4: Bars Score -->
+          <label for="barScore">Bars:</label>
+          <input type="number" id="barScore" name="barScore" min="0" max="10"><br />
+
+          <!-- Input 5: Beam Score -->
+          <label for="beamScore">Beam:</label>
+          <input type="number" id="beamScore" name="beamScore" min="0" max="10">
+
+          <!-- Input 6: Floor Score -->
+          <label for="floorScore">Floor:</label>
+          <input type="number" id="floorScore" name="floorScore" min="0" max="10"><br />
+        </div>
+
+        <!-- Button to Submit Form -->
+        <br />
+        <button id="addSubmit">Submit</button>
+        <button id="clearForm">Clear</button>
+      </form>
+
+      <!-- Form to Delete Entries -->
+      <form id="delForm" hidden>
+        <!-- Form Header -->
+        <div class="sectionHeader">
+          <hr />
+          <h2>Delete Entry Form</h2>
+          <hr />
+        </div>
+
+        <!-- Input 1: # of Entry to Delete -->
+        <label for="toDel">Enter the Number(#) of the Entry You Would Like to Delete</label><br />
+        <input type="number" id="toDel" name="toDel" min="1"><br />
+
+        <!-- Button to Submit Form -->
+        <br />
+        <button id="delSubmit">Delete</button>
+      </form>
+
+      <!-- Form to Edit Data -->
+      <form id="editForm" hidden>
+        <!-- Form Header -->
+        <div class="sectionHeader">
+          <hr />
+          <h2>Edit Entry Form</h2>
+          <hr />
+        </div>
+
+        <!-- Input 0: Entry Number (read only) -->
+        <label for="num">Entry Number (Display Only)</label><br />
+        <input type="number" id="num" name="num" readonly><br />
+
+        <!-- Input 1: Competition Info -->
+        <label for="editComp">Enter the Name and Year of the Competition:</label><br />
+        <input type="text" id="editComp" name="editComp"><br />
+
+        <!-- Input 2: Level -->
+        <label >Select the Level Competed:</label><br />
+        <input type="radio" name="editLevel" id="editBronze" value="Bronze">
+        <label for="editBronze">Bronze</label>
+        <input type="radio" name="editLevel" id="editSilver" value="Silver">
+        <label for="editSilver">Silver</label>
+        <input type="radio" name="editLevel" id="editGold" value="Gold">
+        <label for="editGold">Gold</label>
+        <input type="radio" name="editLevel" id="editPlatinum" value="Platinum">
+        <label for="editPlatinum">Platinum</label>
+        <input type="radio" name="editLevel" id="editDiamond" value="Diamond">
+        <label for="editDiamond">Diamond</label>
+        <br />
+
+        <label>Scores:</label><br />
+        <div class="scores">
+          <!-- Input 3: Vault Score -->
+          <label for="editVault">Vault:</label>
+          <input type="number" id="editVault" name="vaultScore" min="0" max="10">
+
+          <!-- Input 4: Bars Score -->
+          <label for="editBars">Bars:</label>
+          <input type="number" id="editBars" name="barScore" min="0" max="10"><br />
+
+          <!-- Input 5: Beam Score -->
+          <label for="editBeam">Beam:</label>
+          <input type="number" id="editBeam" name="beamScore" min="0" max="10">
+
+          <!-- Input 6: Floor Score -->
+          <label for="editFloor">Floor:</label>
+          <input type="number" id="editFloor" name="floorScore" min="0" max="10"><br />
+        </div>
+
+        <!-- Button to Submit Form -->
+        <br />
+        <button id="editSubmit">Save</button>
+      </form>
+
+      <!-- Data Display -->
+      <div id="entries">
+        <!-- Display Header -->
+        <div class="sectionHeader">
+          <hr />
+          <h2>Competition Entries</h2>
+          <hr />
+        </div>
+
+        <!-- Display Table -->
+        <table id="dataTable">
+          <thead>
+          <!-- Header Row -->
+            <tr>
+              <th>#</th>
+              <th>Competition Information</th>
+              <th>Level</th>
+              <th>Vault Score</th>
+              <th>Bars Score</th>
+              <th>Beam Score</th>
+              <th>Floor Score</th>
+              <th>Total Score</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <!-- Area where data will be displayed -->
+          <tbody id="storedData">
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <footer>
+      <hr id="footerTopLine"/>
+      <!-- Footer Title -->
+      <h4 class="footerThanks">More Gymnastics Information</h4>
+
+      <!-- Footer Links -->
+      <nav>
+        <a href="https://usagym.org/">USA Gymnastics</a> |
+        <a href="https://www.meetscoresonline.com/">Meet Scores Online</a> |
+        <a href="https://nationalgym.org/">National Gymnastics Association</a>
+      </nav>
+      <hr id="footerBottomLine"/>
+    </footer>
   </body>
 </html>
