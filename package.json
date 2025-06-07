@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "cs4241e25-a2-KatherineTse",
+  "version": "1.0.0",
+  "description": "Website where users can store basic gymnastics competition information and scores. Users can add, delete, and edit entries via forms. The data is displayed in a table on the page.",
+  "author": "Katherine Tse",
   "scripts": {
     "start": "node server.improved.js"
   },

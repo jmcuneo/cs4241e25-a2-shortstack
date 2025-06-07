@@ -1,4 +1,169 @@
+/* Document Styling and Fonts */
 body {
-  /*background:black;*/
-  /*color:white;*/
+    background-color: azure;
+    color: #040E25;
+    font-size: 18px;
+    font-family: Quicksand, sans-serif;
+    margin: 0;
+}
+
+.raleway-<uniquifier> {
+              font-family: "Raleway", sans-serif;
+              font-optical-sizing: auto;
+              font-weight: <weight>;
+              font-style: normal;
+          }
+
+/* Headers */
+header {
+    text-align: center;
+    background-color: lightskyblue;
+    color: #0A2463;
+    font-family: Raleway, sans-serif;
+    max-width: 100vw;
+}
+
+h2 {
+    margin: 0;
+    color: #0A2463;
+    font-family: Raleway, sans-serif;
+}
+
+.sectionHeader {
+    text-align: center;
+    max-width: 75%;
+    margin: auto;
+    background-color: lightskyblue;
+}
+
+.formControl {
+    text-align: center;
+}
+
+.headerContent {
+    display: flex;
+    margin: 0 10px;
+}
+
+.headerCenter {
+    flex: 0 2 90%;
+}
+
+img {
+    max-height: 120px;
+    flex: 0 0 120px;
+}
+
+/* Main Content Layout */
+.formAndEntries {
+    display: flex;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media screen and (max-width: 1300px) {
+    .formAndEntries {
+        flex-direction: column;
+    }
+}
+
+/* Forms */
+form {
+    margin: auto;
+}
+
+input[type=text] {
+    margin: 5px 5px 20px;
+}
+
+input[type=radio] {
+    margin-bottom: 20px;
+}
+
+input[type=number] {
+    margin: 5px 0;
+}
+
+#num {
+    margin: 5px 5px 20px;
+}
+
+.scores {
+    margin-left: 20px;
+}
+
+button {
+    background-color: #0A95EB;
+    border: none;
+    font-family: Raleway, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0A2463;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #054A76;
+    color: white;
+    transition-duration: 0.2s;
+}
+
+#clearForm {
+    background-color: #0A2463;
+    color: white;
+}
+
+#clearForm:hover {
+    background-color: #9DD7FB;
+    color: #040E25;
+    transition-duration: 0.2s;
+}
+
+/* Competition Entries Section */
+#entries {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dataTable {
+    width: 100%;
+    border: 2px dotted lightskyblue;
+}
+
+th {
+    font-size: 1.1rem;
+    border: 2px dotted lightskyblue;
+    padding: 5px;
+}
+
+td {
+    font-size: 1.1rem;
+    border: 2px dotted lightskyblue;
+    padding: 5px;
+}
+
+/* Footer */
+footer {
+    position: absolute;
+    bottom: 0;
+    background-color: #C4E7FD;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#footerTopLine {
+    margin-top: 0;
+}
+
+#footerBottomLine {
+    margin-bottom: 0;
+}
+
+a:hover {
+    color: #040E25;
 }
